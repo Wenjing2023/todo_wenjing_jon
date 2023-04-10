@@ -6,9 +6,18 @@ function App() {
 
   const [tasks, setTasks] = useState(
     [
-      "Buy shopping",
-      "Clear bathroom",
-      "Car MOT"
+      {
+        name: "Buy shopping",
+        priority: "high"
+      },
+      {
+        name: "Clear bathroom",
+        priority: "low"
+      },
+      {
+        name: "Car MOT",
+        priority: "high"
+      }
     ]
   )
   
@@ -19,12 +28,13 @@ function App() {
   }
   const handleTaskSubmit =(event)=>{
     event.preventDefault()
-    // const copyTasks = [...tasks]
-    // copyTasks.push(
-    //   newTask
-    // )
-    // setTasks(copyTasks)
-    setTasks([...tasks,newTask])
+    const copyTasks = [...tasks]
+    copyTasks.push({
+      name: newTask,
+      priority: "low"       
+    })
+    setTasks(copyTasks)
+
     setNewTask('')
   }
   
@@ -46,7 +56,12 @@ function App() {
     <ul>
     {
       tasks.map( (task) => {
-          return (<li>{task}</li>)
+          return (
+            <li 
+              className={ task.priority === "high" ? "high-priority" : "low-priority"}
+            >
+              {task.name}
+            </li>)
           }
         )
     }
